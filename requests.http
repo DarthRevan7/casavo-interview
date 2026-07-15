@@ -1,0 +1,49 @@
+### Create a lead -> assigned to an agent in Milano (agent-1 or agent-2)
+POST http://localhost:8080/v1/leads
+Content-Type: application/json
+
+{
+  "customerName": "Mario Rossi",
+  "customerEmail": "mario@test.com",
+  "customerPhone": "3331234567",
+  "propertyId": "prop-1",
+  "city": "Milano"
+}
+
+### Create a lead -> assigned to an agent in Roma (agent-3 or agent-4)
+POST http://localhost:8080/v1/leads
+Content-Type: application/json
+
+{
+  "customerName": "Giulia Bianchi",
+  "customerEmail": "giulia@test.com",
+  "customerPhone": "3339876543",
+  "propertyId": "prop-2",
+  "city": "Roma"
+}
+
+### Create a lead for a city with no agents -> expect 409 Conflict
+POST http://localhost:8080/v1/leads
+Content-Type: application/json
+
+{
+  "customerName": "Nessun Agente",
+  "customerEmail": "nobody@test.com",
+  "customerPhone": "000",
+  "propertyId": "prop-3",
+  "city": "Torino"
+}
+
+### Repeat the Milano request 6 times in a row to exhaust capacity (max 5/24h per agent):
+### run this block manually 6x (or more) against the same city to see the 6th+ request
+### either land on the second Milano agent or eventually 409 once both are full.
+POST http://localhost:8080/v1/leads
+Content-Type: application/json
+
+{
+  "customerName": "Capacity Test",
+  "customerEmail": "capacity@test.com",
+  "customerPhone": "111",
+  "propertyId": "prop-capacity",
+  "city": "Milano"
+}
