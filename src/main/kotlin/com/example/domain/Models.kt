@@ -40,5 +40,6 @@ data class Assignment(
     val leadId: String,
     val agentId: String,
     val assignedAt: Instant = Instant.now(),
-    val notificationStatus: NotificationStatus = NotificationStatus.PENDING_NOTIFICATION
+    val notificationStatus: NotificationStatus = NotificationStatus.PENDING_NOTIFICATION,
+    val notificationAttempts: Int = 0
 )
